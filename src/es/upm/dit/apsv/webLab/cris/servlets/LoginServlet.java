@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 		Researcher researcher = ResearcherDAOImplementation.getInstance().readAsUser(email, password);
 		if (ADMIN.equals(email) && ADMIN.equals(password)) {
 			Researcher root = new Researcher();
-			root.setId("root");
+			root.setId(1);
 			req.getSession().setAttribute("userAdmin", "true");
 			req.getSession().setAttribute("user", root);
 			resp.sendRedirect(req.getContextPath() + "/AdminServlet");

@@ -12,7 +12,7 @@ public class ResearcherDAOImplementation implements ResearcherDAO{
 
 	private static ResearcherDAOImplementation instance;
 
-	private ResearcherDAOImplementation() {
+	public ResearcherDAOImplementation() {
 	}
 
 	public static ResearcherDAOImplementation getInstance() {

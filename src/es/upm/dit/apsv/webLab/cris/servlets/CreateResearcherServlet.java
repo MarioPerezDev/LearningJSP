@@ -14,17 +14,19 @@ import es.upm.dit.apsv.webLab.cris.model.Researcher;
 @WebServlet("/CreateResearcherServlet")
 public class CreateResearcherServlet extends HttpServlet {
 
+	private static ResearcherDAOImplementation reseacherDao = new ResearcherDAOImplementation();
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if ("true".equals(req.getSession().getAttribute("userAdmin"))) {
-			String id = req.getParameter("uid");
+			int id = Integer.parseInt(req.getParameter("uid"));
 			String name = req.getParameter("name");
 			String lastName = req.getParameter("last_name");
 			Researcher r = new Researcher();
 			r.setId(id);
 			r.setName(name);
 			r.setLastName(lastName);
-			ResearcherDAOImplementation.getInstance().create(r);
+			reseacherDao.create(r);
 			resp.sendRedirect(req.getContextPath() + "/ResearcherServlet?id=" + r.getId());
 
 		} else {

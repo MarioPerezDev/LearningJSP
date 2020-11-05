@@ -19,9 +19,13 @@
 	<h2>Create researcher</h2>
 	<form action="CreateResearcherServlet" method="post">
 
-		<input type="text" name="uid" placeholder="User Id"> <input
-			type="text" name="name" placeholder="Name"> <input
-			type="text" name="last_name" placeholder="Last name">
+		<input type="text" name="uid" placeholder="User Id">
+		<input type="text" name="name" placeholder="Name">
+		<input type="text" name="last_name" placeholder="Last name">
+		<input type="text" name="email" placeholder="Email">
+		<input type="text" name="password" placeholder="Password">
+		<input type="text" name="scopusUrl" placeholder="ScopusUrl">
+		<input type="text" name="eid" placeholder="eid">
 		<button type="submit">Create researcher</button>
 	</form>
 	<h2>Populate researchers</h2>
