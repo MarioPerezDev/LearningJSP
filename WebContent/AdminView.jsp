@@ -24,7 +24,7 @@
 		<input type="text" name="last_name" placeholder="Last name">
 		<input type="text" name="email" placeholder="Email">
 		<input type="text" name="password" placeholder="Password">
-		<input type="text" name="scopusUrl" placeholder="ScopusUrl">
+		<input type="text" name="scopus_url" placeholder="ScopusUrl">
 		<input type="text" name="eid" placeholder="eid">
 		<button type="submit">Create researcher</button>
 	</form>

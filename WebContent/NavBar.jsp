@@ -31,7 +31,7 @@
 </nav>
 <c:if test="${not (empty user)}">
 <!-- //Se presenta un mensaje indicando si el usuario ya se ha autentificado. -->
-	<p>You are authenticated as ${user.id}</p> 
+	<p style="color: green;">You are authenticated as ${user.id}</p>  
 </c:if>
 <c:if test="${empty user}">
 <!--  //se presenta un enlace a LoginServlet para que se autentifique. -->
