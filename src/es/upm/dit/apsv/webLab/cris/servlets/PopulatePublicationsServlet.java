@@ -42,7 +42,7 @@ public class PopulatePublicationsServlet extends HttpServlet {
 			while (null != (line = bReader.readLine())) {
 				String[] lSplit = line.split(",");
 				Publication p = new Publication();
-				Researcher r = researcherDao.read(Integer.parseInt(lSplit[5]));
+				Researcher r = researcherDao.read(lSplit[5]);
 				if (null == r)
 					continue;
 				p.setId(lSplit[0]);
