@@ -13,6 +13,7 @@
 				<th>Id</th>
 				<th>Name</th>
 				<th>Last name</th>
+				<th>URL</th>
 				<th>Publications</th>
 				<th>Email</th>
 			</tr>
@@ -21,6 +22,7 @@
 					<td><a href="ResearcherServlet?id=${r_i.id}">${r_i.id}</a></td>
 					<td>${r_i.name}</td>
 					<td>${r_i.lastName}</td>
+					<td>${r_i.scopusUrl}</td>
 					<td>${fn:length(r_i.publications)}</td>
 					<td>${r_i.email}</td>
 				</tr>
