@@ -26,13 +26,13 @@ import es.upm.dit.apsv.webLab.cris.model.Researcher;
 @MultipartConfig
 public class PopulatePublicationsServlet extends HttpServlet {
 
-	final String EXPECTED_HEADER = "id,tilte,eid,publicationName,publicationDate,firstAuthor,authors";
+	private final String EXPECTED_HEADER = "id,tilte,eid,publicationName,publicationDate,firstAuthor,authors";
+	
+	private ResearcherDAO researcherDao = ResearcherDAOImplementation.getInstance();
+	private PublicationDAO publicationDao = PublicationDAOImplementation.getInstance();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ResearcherDAO rdao = ResearcherDAOImplementation.getInstance();
-		PublicationDAO pdao = PublicationDAOImplementation.getInstance();
-
 		Part filePart = req.getPart("file");
 		InputStream fileContent = filePart.getInputStream();
 		BufferedReader bReader = new BufferedReader(new InputStreamReader(fileContent, "UTF8"));
@@ -42,7 +42,7 @@ public class PopulatePublicationsServlet extends HttpServlet {
 			while (null != (line = bReader.readLine())) {
 				String[] lSplit = line.split(",");
 				Publication p = new Publication();
-				Researcher r = rdao.read(lSplit[5]);
+				Researcher r = researcherDao.read(Integer.parseInt(lSplit[5]));
 				if (null == r)
 					continue;
 				p.setId(lSplit[0]);
@@ -50,13 +50,13 @@ public class PopulatePublicationsServlet extends HttpServlet {
 				p.setEid(lSplit[2]);
 				p.setPublicationName(lSplit[3]);
 				p.setPublicationDate(lSplit[4]);
-				p.setFirstAuthor(r.getId());
+				p.setFirstAuthor(r.getId().toString());
 				p.setAuthors(Arrays.asList(lSplit[6].split(";")));
-				if (null == pdao.read(p.getId()))
+				if (null == publicationDao.read(p.getId()))
 					try {
-						pdao.create(p);
+						publicationDao.create(p);
 						r.getPublications().add(p.getId());
-						rdao.update(r);
+						researcherDao.update(r);
 						i++;
 					} catch (Exception e) {
 						// TODO: problema con las publicaciones con cientos de autores

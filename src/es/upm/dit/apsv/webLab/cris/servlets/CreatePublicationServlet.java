@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.upm.dit.apsv.webLab.cris.dao.PublicationDAOImplementation;
+import es.upm.dit.apsv.webLab.cris.dao.ResearcherDAO;
 import es.upm.dit.apsv.webLab.cris.dao.ResearcherDAOImplementation;
 import es.upm.dit.apsv.webLab.cris.model.Publication;
 import es.upm.dit.apsv.webLab.cris.model.Researcher;
 
 @WebServlet("/CreatePublicationServlet")
 public class CreatePublicationServlet extends HttpServlet {
+	
+	private ResearcherDAO researcherDao = ResearcherDAOImplementation.getInstance();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +30,7 @@ public class CreatePublicationServlet extends HttpServlet {
 		String eid = req.getParameter("eid");
 		String publicationName = req.getParameter("publication_name");
 		String publicationDate = req.getParameter("publication_date");
-		Researcher r = ResearcherDAOImplementation.getInstance().read(firstAuthorId);
+		Researcher r = researcherDao.read(firstAuthorId);
 		
 		Publication p = new Publication();
 		p.setFirstAuthor(firstAuthorId);
@@ -40,7 +43,7 @@ public class CreatePublicationServlet extends HttpServlet {
 		p = PublicationDAOImplementation.getInstance().create(p);
 		
 		r.getPublications().add(id);
-		ResearcherDAOImplementation.getInstance().update(r);
+		researcherDao.update(r);
 		resp.sendRedirect(req.getContextPath() + "/PublicationServlet?id=" + p.getId());
 
 	}

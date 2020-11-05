@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,13 +17,25 @@ import javax.persistence.Id;
 public class Researcher implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	@Column(name = "id", nullable = false)
+	private String id;
+	
+	@Column(name = "name", nullable = false, length = 15)
 	private String name;
+	
+	@Column(name = "last_name", nullable = true, length = 15)
 	private String lastName;
+	
+	@Column(name = "email", nullable = false, length = 30)
 	private String email;
+	
+	@Column(name = "password", nullable = false, length = 15)
 	private String password;
+	
+	@Column(name = "scopus_url", nullable = true, length = 255)
 	private String scopusUrl;
+	
+	@Column(name = "eid", nullable = false)
 	private String eid;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -32,11 +45,11 @@ public class Researcher implements Serializable {
 		publications = new HashSet<>();
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

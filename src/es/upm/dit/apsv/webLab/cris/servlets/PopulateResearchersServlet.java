@@ -22,11 +22,11 @@ import es.upm.dit.apsv.webLab.cris.model.Researcher;
 public class PopulateResearchersServlet extends HttpServlet {
 
 	final String EXPECTED_HEADER = "id,name,lastName,scopusUrl,eid";
+	
+	private ResearcherDAO researcherDao = ResearcherDAOImplementation.getInstance();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ResearcherDAO rdao = ResearcherDAOImplementation.getInstance();
-
 		Part filePart = req.getPart("file");
 		InputStream fileContent = filePart.getInputStream();
 		BufferedReader bReader = new BufferedReader(new InputStreamReader(fileContent, "UTF8"));
@@ -41,8 +41,8 @@ public class PopulateResearchersServlet extends HttpServlet {
 				r.setLastName(lSplit[2]);
 				r.setScopusUrl(lSplit[3]);
 				r.setEid(lSplit[4]);
-				if (null == rdao.read(r.getId())) {
-					rdao.create(r);
+				if (null == researcherDao.read(r.getId())) {
+					researcherDao.create(r);
 					i++;
 				}
 			}
